@@ -1,10 +1,13 @@
 class Airport
+  DEFAULTCAPACITY = 200
+
   def initialize
     @hangar = []
   end
 
   def store(plane)
     raise 'Stormy Weather, unsafe to land' if weather == 'stormy'
+    raise 'Airport Full, no space to land' if hangar_full?
     @hangar.push(plane)
   end
 
@@ -18,5 +21,9 @@ class Airport
 
   def weather
     rand() < 0.8 ?  'clear' : 'stormy'
+  end
+
+  def hangar_full?
+    @hangar.length == DEFAULTCAPACITY
   end
 end
