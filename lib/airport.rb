@@ -1,9 +1,14 @@
 class Airport
-  def store(plane)
-    [plane]
+  def initialize
+    @hangar = []
   end
 
-  def remove(_plane)
-    []
+  def store(plane)
+    @hangar.push(plane)
+  end
+
+  def remove(plane)
+    @hangar.delete(plane)
+    @hangar
   end
 end
