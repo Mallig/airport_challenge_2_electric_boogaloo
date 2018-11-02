@@ -1,5 +1,6 @@
 class Aeroplane
-  def land(_airport)
+  def land(airport)
+    airport.store(self)
     "plane has landed at airport"
   end
 

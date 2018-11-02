@@ -1,10 +1,11 @@
 require 'aeroplane'
 
 describe Aeroplane do
-  let(:mockAirport) { double :airport }
+  let(:mockAirport) { double :airport, :store => nil }
 
   describe '.land' do
     it 'lands the plane at an airport' do
+      expect(mockAirport).to receive(:store).with(subject)
       expect(subject.land(mockAirport))
         .to eq "plane has landed at airport"
     end
