@@ -54,4 +54,15 @@ describe Airport do
         .to raise_error "Stormy Weather, unsafe to take off"
     end
   end
+
+  it 'has a default capacity which can be overridden' do
+    capacity = 10
+    subject = Airport.new(capacity)
+    allow(subject).to receive(:weather) { 'clear' }
+    capacity.times do
+      subject.store(mockPlane)
+    end
+    expect { subject.store(mockPlane) }
+      .to raise_error 'Airport Full, no space to land'
+  end
 end

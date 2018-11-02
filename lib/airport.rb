@@ -1,8 +1,9 @@
 class Airport
   DEFAULTCAPACITY = 200
 
-  def initialize
+  def initialize(capacity = DEFAULTCAPACITY)
     @hangar = []
+    @capacity = capacity
   end
 
   def store(plane)
@@ -24,6 +25,6 @@ class Airport
   end
 
   def hangar_full?
-    @hangar.length == DEFAULTCAPACITY
+    @hangar.length == @capacity
   end
 end
