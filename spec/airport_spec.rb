@@ -2,24 +2,39 @@ require 'airport'
 
 describe Airport do
   let(:mockPlane) { double :aeroplane }
-  
+
   context 'when weather is clear' do
     before(:each) do
       allow(subject).to receive(:weather) { "clear" }
     end
 
-    describe '.store' do
-      it 'stores provided argument in its hangar' do
-        expect(subject.store(mockPlane))
-          .to include(mockPlane)
+    context 'when airport is not full' do
+      describe '.store' do
+        it 'stores provided argument in its hangar' do
+          expect(subject.store(mockPlane))
+            .to include(mockPlane)
+        end
+      end
+
+      describe '.remove' do
+        it 'removes provided argument from the hangar' do
+          subject.store(mockPlane)
+          expect(subject.remove(mockPlane))
+            .not_to include(mockPlane)
+        end
       end
     end
 
-    describe '.remove' do
-      it 'removes provided argument from the hangar' do
-        subject.store(mockPlane)
-        expect(subject.remove(mockPlane))
-          .not_to include(mockPlane)
+    context 'when airport is full' do
+      before(:each) do
+        Airport::DEFAULTCAPACITY.times do
+          subject.store(mockPlane)
+        end
+      end
+
+      it 'prevents planes from landing' do
+        expect { subject.store(mockPlane) }
+          .to raise_error 'Airport Full, no space to land'
       end
     end
   end
