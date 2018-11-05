@@ -28,7 +28,7 @@ $ irb
 > require './lib/aeroplane'
 ```
 
-After creating an airport and plane the plane can be landed at the airport
+After creating an airport and plane the plane can land and take off from the airport
 
 ```
 > plane.land(airport)
@@ -68,3 +68,14 @@ I would like a default airport capacity that can be overridden as appropriate
 ```
 
 Two objects stand out immediately, Aeroplane and Airport. These two classes should be capable of fulfilling all the user stories. Random weather status could be extracted into a module.
+
+### Edge Cases
+
+Airports should not be able to land a plane if it is already stored in the hangar, nor should they be able to release a plane that is not currently in tha hangar. Similarly, aeroplanes should not be able to land at an airport if they are already landed, nor should they be able to take off if they are already in the air. These edge cases are all accounted for and tested. 
+
+### Making Changes
+
+If you would like to contribute to this repository:
+ - fork this reporsitory
+ - make the changes
+ - submit a pull request
