@@ -3,20 +3,39 @@ require 'aeroplane'
 describe Aeroplane do
   let(:mockAirport) { double :airport, :store => nil, :remove => nil }
 
-  describe '.land' do
-    it 'lands the plane at an airport' do
-      expect(mockAirport).to receive(:store).with(subject)
-      expect(subject.land(mockAirport))
-        .to eq "plane has landed at airport"
+  context 'when plane in in the air' do
+    describe '.land' do
+      it 'lands the plane at an airport' do
+        expect(subject.land(mockAirport))
+          .to eq 'plane has landed at airport'
+      end
+    end
+
+    describe '.takeoff' do
+      it 'raises an error' do
+        expect { subject.takeoff(mockAirport) }
+          .to raise_error 'Plane is already in the air'
+      end
     end
   end
 
-  describe '.takeoff' do
-    it 'makes the plane leave the airport' do
-      expect(mockAirport).to receive(:remove).with(subject)
+  context 'when plane is on the ground' do
+    before(:each) do
       subject.land(mockAirport)
-      expect(subject.takeoff(mockAirport))
-        .to eq "plane has left airport"
+    end
+
+    describe '.takeoff' do
+      it 'makes the plane leave the airport' do
+        expect(subject.takeoff(mockAirport))
+          .to eq 'plane has left airport'
+      end
+    end
+
+    describe '.land' do
+      it 'raises an error' do
+        expect { subject.land(mockAirport) }
+          .to raise_error 'Plane has already landed'
+      end
     end
   end
 end

@@ -32,14 +32,18 @@ class Airport
     @hangar.include?(plane)
   end
 
+  def stormy?
+    report == 'stormy'
+  end
+
   def landing_errors(plane)
     raise 'Plane already in hangar' if in_hangar?(plane)
-    raise 'Stormy Weather, unsafe to land' if report == 'stormy'
+    raise 'Stormy Weather, unsafe to land' if stormy?
     raise 'Airport Full, no space to land' if hangar_full?
   end
 
   def takeoff_errors(plane)
     raise 'Plane not in hangar' unless in_hangar?(plane)
-    raise 'Stormy Weather, unsafe to take off' if report == 'stormy'
+    raise 'Stormy Weather, unsafe to take off' if stormy?
   end
 end
