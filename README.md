@@ -12,7 +12,7 @@ Written in ruby, tested with rspec.
 
 ### Running the Program
 
-Clone this repository onto your machine, move into the folder `bundle install`
+Clone this repository onto your machine, move into the folder and `bundle install`
 
 ```
 $ git clone https://github.com/Mallig/airport_challenge_2_electric_boogaloo
@@ -35,6 +35,19 @@ After creating an airport and plane the plane can land and take off from the air
 "plane has landed at airport"
 > plane.takeoff(airport)
 "plane has left airport"
+```
+
+The Airport has random weather conditions which are checked each time a plane tries to land or take off, if the weather is stormy then the plane will be prevented from landing/taking off
+
+```
+> plane.land(airport)
+Traceback (most recent call last):
+        5: from /usr/local/bin/irb:11:in `<main>'
+        4: from (irb):5
+        3: from /Users/malachygilchrist/Coding/Projects/to-be-reviewed/airport_challenge/lib/aeroplane.rb:9:in `land'
+        2: from /Users/malachygilchrist/Coding/Projects/to-be-reviewed/airport_challenge/lib/airport.rb:13:in `store'
+        1: from /Users/malachygilchrist/Coding/Projects/to-be-reviewed/airport_challenge/lib/airport.rb:41:in `landing_errors'
+RuntimeError (Stormy Weather, unsafe to land)
 ```
 
 ### User Stories
