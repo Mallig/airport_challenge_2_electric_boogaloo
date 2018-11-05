@@ -22,8 +22,7 @@ describe Airport do
         describe '.remove' do
           it 'removes the plane from the hangar' do
             subject.store(mockPlane)
-            expect(subject.remove(mockPlane))
-              .not_to include(mockPlane)
+            expect(subject.remove(mockPlane)).not_to include(mockPlane)
           end
         end
       end
@@ -31,8 +30,7 @@ describe Airport do
       context 'when plane is not in hangar' do
         describe '.store' do
           it 'stores the plane in its hangar' do
-            expect(subject.store(mockPlane))
-              .to include(mockPlane)
+            expect(subject.store(mockPlane)).to include(mockPlane)
           end
         end
 
