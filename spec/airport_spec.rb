@@ -6,7 +6,7 @@ describe Airport do
 
   context 'when weather is clear' do
     before(:each) do
-      allow(subject).to receive(:report) { "clear" }
+      allow(subject).to receive(:report) { :clear }
     end
 
     context 'when airport is not full' do
@@ -47,7 +47,7 @@ describe Airport do
       before(:each) do
         capacity = 1
         @small_airport = Airport.new(capacity)
-        allow(@small_airport).to receive(:report) { "clear" }
+        allow(@small_airport).to receive(:report) { :clear }
         @small_airport.store(mockPlane)
       end
 
@@ -60,9 +60,9 @@ describe Airport do
 
   context 'when weather is stormy' do
     before(:each) do
-      allow(subject).to receive(:report) { "clear" }
+      allow(subject).to receive(:report) { :clear }
       subject.store(mockPlane)
-      allow(subject).to receive(:report) { "stormy" }
+      allow(subject).to receive(:report) { :stormy }
     end
 
     it 'prevents planes from landing' do
@@ -79,7 +79,7 @@ describe Airport do
   it 'has a default capacity which can be overridden' do
     capacity = 1
     subject = Airport.new(capacity)
-    allow(subject).to receive(:report) { 'clear' }
+    allow(subject).to receive(:report) { :clear }
     subject.store(mockPlane)
     
     expect { subject.store(mockAnotherPlane) }

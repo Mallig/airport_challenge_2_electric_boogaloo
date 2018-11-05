@@ -33,7 +33,7 @@ class Airport
   end
 
   def stormy?
-    report == 'stormy'
+    report == :stormy
   end
 
   def landing_errors(plane)

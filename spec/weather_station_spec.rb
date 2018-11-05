@@ -23,14 +23,14 @@ describe WeatherStation do
     end
 
     context 'when Kernel.rand returns lower than 0.8' do
-      it 'returns weather status of "clear"' do
-        expect(@mock_airport.report(MockKernelLowRand)).to eq "clear"
+      it 'returns weather status of :clear' do
+        expect(@mock_airport.report(MockKernelLowRand)).to eq :clear
       end
     end
 
     context 'when Kernel.rand returns greater than 0.8' do
-      it 'returns weather status of "stormy"' do
-        expect(@mock_airport.report(MockKernelHighRand)).to eq "stormy"
+      it 'returns weather status of :stormy' do
+        expect(@mock_airport.report(MockKernelHighRand)).to eq :stormy
       end
     end
   end
