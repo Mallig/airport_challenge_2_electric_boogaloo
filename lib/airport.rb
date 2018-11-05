@@ -1,4 +1,7 @@
+require './lib/weather_station.rb'
+
 class Airport
+  include WeatherStation
   DEFAULTCAPACITY = 200
 
   def initialize(capacity = DEFAULTCAPACITY)
@@ -23,7 +26,7 @@ class Airport
   private
 
   def weather
-    rand() < 0.8 ? 'clear' : 'stormy'
+    self.report
   end
 
   def hangar_full?
