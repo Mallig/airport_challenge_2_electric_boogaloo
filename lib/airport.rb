@@ -10,14 +10,16 @@ class Airport
   end
 
   def store(plane)
-    raise 'Stormy Weather, unsafe to land' if weather == 'stormy'
+    raise 'Plane already in hangar' if in_hangar?(plane)
+    raise 'Stormy Weather, unsafe to land' if report == 'stormy'
     raise 'Airport Full, no space to land' if hangar_full?
 
     @hangar.push(plane)
   end
 
   def remove(plane)
-    raise 'Stormy Weather, unsafe to take off' if weather == 'stormy'
+    raise 'Plane not in hangar' unless in_hangar?(plane)
+    raise 'Stormy Weather, unsafe to take off' if report == 'stormy'
 
     @hangar.delete(plane)
     @hangar
@@ -25,11 +27,11 @@ class Airport
 
   private
 
-  def weather
-    self.report
-  end
-
   def hangar_full?
     @hangar.length == @capacity
+  end
+
+  def in_hangar?(plane)
+    @hangar.include?(plane)
   end
 end

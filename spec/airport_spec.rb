@@ -2,16 +2,18 @@ require 'airport'
 
 describe Airport do
   let(:mockPlane) { double :aeroplane }
+  let(:mockAnotherPlane) { double :aeroplane }
 
   context 'when weather is clear' do
     before(:each) do
-      allow(subject).to receive(:weather) { "clear" }
+      allow(subject).to receive(:report) { "clear" }
     end
 
     context 'when airport is not full' do
       context 'when plane is in the hangar' do
         describe '.store' do
           it 'raises an error' do
+            subject.store(mockPlane)
             expect { subject.store(mockPlane) }
               .to raise_error "Plane already in hangar"
           end
@@ -45,25 +47,28 @@ describe Airport do
 
     context 'when airport is full' do
       before(:each) do
-        Airport::DEFAULTCAPACITY.times do
-          subject.store(mockPlane)
-        end
+        capacity = 1
+        @small_airport = Airport.new(capacity)
+        allow(@small_airport).to receive(:report) { "clear" }
+        @small_airport.store(mockPlane)
       end
 
       it 'prevents planes from landing' do
-        expect { subject.store(mockPlane) }
-          .to raise_error 'Airport Full, no space to land'
+        expect { @small_airport.store(mockAnotherPlane) }
+          .to raise_error "Airport Full, no space to land"
       end
     end
   end
 
   context 'when weather is stormy' do
     before(:each) do
-      allow(subject).to receive(:weather) { "stormy" }
+      allow(subject).to receive(:report) { "clear" }
+      subject.store(mockPlane)
+      allow(subject).to receive(:report) { "stormy" }
     end
 
     it 'prevents planes from landing' do
-      expect { subject.store(mockPlane) }
+      expect { subject.store(mockAnotherPlane) }
         .to raise_error "Stormy Weather, unsafe to land"
     end
 
@@ -74,13 +79,12 @@ describe Airport do
   end
 
   it 'has a default capacity which can be overridden' do
-    capacity = 10
+    capacity = 1
     subject = Airport.new(capacity)
-    allow(subject).to receive(:weather) { 'clear' }
-    capacity.times do
-      subject.store(mockPlane)
-    end
-    expect { subject.store(mockPlane) }
-      .to raise_error 'Airport Full, no space to land'
+    allow(subject).to receive(:report) { 'clear' }
+    subject.store(mockPlane)
+    
+    expect { subject.store(mockAnotherPlane) }
+      .to raise_error "Airport Full, no space to land"
   end
 end
